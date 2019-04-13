@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
-    String name, description;
+    private String name, description;
     private HashMap<String, Item> items;
     Graph.Node currentRoom;
 
@@ -13,25 +13,16 @@ public class Player {
         items = new HashMap<>();
     }
 
-    public void addItem(Item item){
-        if(item == null){
-            System.out.println("You already have that item or that item does not exist in your current room");
-        }
-        else{
-            items.put(item.getName(), item);
-        }
-    }
-
     public boolean addItem(String item){
         for(String i: currentRoom.getItems().keySet()){
             if(i.equals(item)){
                 Item newItem = currentRoom.getItems().get(item);
                 if(newItem == null){
-                    System.out.println("You already have that item or that item does not exist in your current room");
                     return false;
                 }
-                else{
+                else {
                     items.put(newItem.getName(), newItem);
+                    currentRoom.removeItem(item);
                     return true;
                 }
             }

@@ -1,6 +1,6 @@
 public class GoCommand implements Command {
-    Graph g;
-    String roomName;
+    private Graph g;
+    private String roomName;
 
     public GoCommand(Graph g){
         this.g = g;
@@ -12,7 +12,7 @@ public class GoCommand implements Command {
     }
 
     private String getLastWordIn(String userString) {
-        if (userString.indexOf("go") != -1) {
+        if (userString.contains("go")) {
             return userString.substring(userString.indexOf(" ") + 1);
         }
         return "";
@@ -22,9 +22,8 @@ public class GoCommand implements Command {
     public boolean execute() {
         Player p = g.getPlayer();
         boolean success;
-        if(p.getCurrentRoom().getNeighborNames().indexOf(roomName.substring(roomName.indexOf(" ") + 1)) != -1) {
+        if(p.getCurrentRoom().getNeighborNames().contains(roomName.substring(roomName.indexOf(" ") + 1))) {
             p.setCurrentRoom(g.getNode(roomName));
-            System.out.println(roomName.toString());
             success = true;
         }
         else {

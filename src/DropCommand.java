@@ -1,9 +1,8 @@
+public class DropCommand implements Command {
+    private Graph g;
+    private String itemName;
 
-public class TakeCommand implements Command {
-    Graph g;
-    String itemName;
-
-    public TakeCommand(Graph g){
+    public DropCommand(Graph g){
         this.g = g;
     }
 
@@ -13,7 +12,7 @@ public class TakeCommand implements Command {
     }
 
     private String getLastWordIn(String userString) {
-        if (userString.indexOf("take") != -1) {
+        if (userString.contains("drop")) {
             return userString.substring(userString.indexOf(" ") + 1);
         }
         return "";
@@ -22,8 +21,6 @@ public class TakeCommand implements Command {
     @Override
     public boolean execute() {
         Player p = g.getPlayer();
-        boolean success = p.addItem(itemName);
-        return success;
+        return p.removeItem(itemName);
     }
-
 }

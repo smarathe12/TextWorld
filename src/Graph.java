@@ -52,7 +52,7 @@ public class Graph {
     }
 
     public Graph.Node getRandomRoom(){
-        ArrayList<Node> rooms = new ArrayList<Node>(nodes.values());
+        ArrayList<Node> rooms = new ArrayList<>(nodes.values());
         if(rooms.size() == 0){
             return null;
         }
@@ -64,16 +64,6 @@ public class Graph {
 
     public void addCreatures(Creature c){
         creatures.add(c);
-    }
-
-    public Creature removeCreature(Creature c){
-        Creature output = c;
-        creatures.remove(c);
-        return output;
-    }
-
-    public int getNumberOfCreatures(){
-        return creatures.size();
     }
 
     public void tickAllCreatures(){
@@ -96,10 +86,6 @@ public class Graph {
             return description;
         }
 
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
         public Node(String name, String description) {
             neighbors = new HashMap<>();
             this.name = name;
@@ -113,9 +99,7 @@ public class Graph {
         public void addNeighbor(Node n){
             neighbors.put(n.getName(), n);
         }
-        public Node getNeighbor(String name){
-            return neighbors.get(name);
-        }
+
         public String getNeighborNames(){
             String output = "";
             for (String name: neighbors.keySet()) {
@@ -157,10 +141,6 @@ public class Graph {
                 int randomNum = (int)(Math.random() * rooms.size());
                 return rooms.get(randomNum);
             }
-        }
-
-        public int getNumberOfNeighbors(){
-            return neighbors.size();
         }
 
         public void addWumpuses(Creature c){

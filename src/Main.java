@@ -27,16 +27,17 @@ public class Main {
         ArrayList<Creature> wumpuses = new ArrayList<>();
         ArrayList<Creature> popstars = new ArrayList<>();
         for (int i = 0; i < 200; i++) {
-            Graph.Node randRoom = g.getRandomRoom();
-            System.out.println(g.getRandomRoom().getName());
-            Creature chicken = new Chicken(randRoom, true, p, g);
-            Creature wumpus = new Wumpus(randRoom, true, p, g);
-            Creature popstar = new PopStar(randRoom, true, p, g);
-            randRoom.addChickens(chicken);
+            Graph.Node randRoom1 = g.getRandomRoom();
+            Graph.Node randRoom2 = g.getRandomRoom();
+            Graph.Node randRoom3 = g.getRandomRoom();
+            Creature chicken = new Chicken(randRoom1, true, p, g);
+            Creature wumpus = new Wumpus(randRoom2, true, p, g);
+            Creature popstar = new PopStar(randRoom3, true, p, g);
+            randRoom1.addChickens(chicken);
             chickens.add(chicken);
-            randRoom.addChickens(wumpus);
+            randRoom2.addWumpuses(wumpus);
             wumpuses.add(wumpus);
-            randRoom.addChickens(popstar);
+            randRoom3.addPopstars(popstar);
             popstars.add(popstar);
         }
 
@@ -56,7 +57,7 @@ public class Main {
         String response = "";
         Scanner s = new Scanner(System.in);
 
-        do {
+        while (!response.equals("quit")) {
             System.out.println("You are in the " + p.getCurrentRoom().getName());
             if (p.getItems().size() == 0) {
                 System.out.println("You currently possess no items");
@@ -64,26 +65,24 @@ public class Main {
                 System.out.println("You possess the: ");
                 p.displayInventory();
             }
-            if (response.equals("quit")) {
-                response = "quit";
-            }
-            g.tickAllCreatures();
             System.out.println("What do you want to do? >");
             response = s.nextLine();
             Command command = lookUpCommand(response);
             boolean success = command.execute();
-            if (success == false) {
-                System.out.println("The commands you can run are: ");
-                System.out.println("Type go <roomname> to go to that room");
-                System.out.println("Type look to see the neighbors for the room you are in");
-                System.out.println("Type add room <roomname> to add a neighbor to your current room");
-                System.out.println("Type take <itemname> to take an item avaible in your current room");
-                System.out.println("Type drop <itemname> to drop an item you possess in your current room");
-                System.out.println("Type quit to exit the game");
-            } else {
-                System.out.println("action was successful!");
+            g.tickAllCreatures();
+            if(!response.equals("quit")){
+                if (!success) {
+                    System.out.println("COMMAND UNSUCCESSFUL");
+                    System.out.println("The commands you can run are: ");
+                    System.out.println("Type go <roomname> to go to that room");
+                    System.out.println("Type look to see the neighbors for the room you are in");
+                    System.out.println("Type add room <roomname> to add a neighbor to your current room");
+                    System.out.println("Type take <itemname> to take an item avaible in your current room");
+                    System.out.println("Type drop <itemname> to drop an item you possess in your current room");
+                    System.out.println("Type quit to exit the game");
+                }
             }
-        } while (!response.equals("quit"));
+        }
     }
 
 

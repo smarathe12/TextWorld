@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class AddRoomCommand implements Command {
-    Graph g;
-    String roomName;
+    private Graph g;
+    private String roomName;
 
     public AddRoomCommand(Graph g){
         this.g = g;
@@ -14,7 +14,7 @@ public class AddRoomCommand implements Command {
     }
 
     private String getLastWordIn(String userString) {
-        if (userString.indexOf("go") != -1) {
+        if (userString.contains("add-room")) {
             return userString.substring(userString.indexOf("m") + 2);
         }
         return "";
